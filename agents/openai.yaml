@@ -1,0 +1,7 @@
+interface:
+  display_name: "AI Website Deploy Skill"
+  short_description: "Deploy existing sites with free hosting and optional backends"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"
+  brand_color: "#3EE0B5"
+  default_prompt: "Use $ai-website-deploy-skill to deploy this existing website with free-tier hosting, optional backend and user data storage, and end-to-end checks."
