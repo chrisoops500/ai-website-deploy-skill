@@ -1,0 +1,41 @@
+name: Deployment or installation report
+description: Report a reproducible install, frontend, backend, or regional access problem.
+title: "[Deployment] "
+body:
+  - type: markdown
+    attributes:
+      value: "Include only redacted details. Do not upload credentials, user records, private source, or full IP addresses."
+  - type: input
+    id: environment
+    attributes:
+      label: Agent, CLI version, and framework
+      placeholder: "Codex; skills CLI version; Vite + React"
+    validations:
+      required: true
+  - type: dropdown
+    id: stage
+    attributes:
+      label: Failed stage
+      options:
+        - Installation
+        - Account or repository connection
+        - Frontend deployment
+        - Backend deployment
+        - Frontend to API integration
+        - Storage or regional access
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps and expected behavior
+      description: "Use a minimal reproduction or describe the relevant settings."
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result and redacted evidence
+      description: "For access issues, add test time and broad region/network."
+    validations:
+      required: true

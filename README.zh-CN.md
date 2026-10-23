@@ -4,9 +4,9 @@
 
 # AI Website Deploy Skill
 
-### 把已经写好的网站，部署成真正能用的链接。
+### AI 自动部署已有网站：免费前端托管，按需配置免费后端。
 
-**一个 Agent Skill，而不是另一个网站模板。**
+**让 AI 编程 Agent 接手网站部署、前后端联调和上线验证；支持纯前端、独立 API 与按需用户数据存储。**
 
 [![Agent Skill](https://img.shields.io/badge/Agent-Skill-3ee0b5?style=flat-square&labelColor=10232c)](SKILL.md)
 [![Netlify](https://img.shields.io/badge/Netlify-Frontend-00c7b7?style=flat-square&labelColor=10232c)](https://www.netlify.com/)
@@ -14,6 +14,14 @@
 [![Data](https://img.shields.io/badge/User_Data-On_Demand-80a8ff?style=flat-square&labelColor=10232c)](references/access-and-data.md)
 
 [快速开始](#-30-秒开始) · [工作方式](#-它会做什么) · [大陆与海外访问](#-中国大陆与海外都能看吗) · [用户数据](#-需要后端或用户数据时) · [English](README.md)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-3ee0b5?style=flat-square&labelColor=10232c)](LICENSE)
+
+```bash
+npx skills add chrisoops500/ai-website-deploy-skill
+```
+
+安装 → 选择 Agent → 打开已有网站 → 发出部署请求。
 
 </div>
 
@@ -39,7 +47,15 @@
 
 ### 1 · 安装技能
 
-在 Codex 中发送：
+推荐在项目目录运行 [Skills CLI](https://github.com/vercel-labs/skills)，选择你使用的 Agent：
+
+```bash
+npx skills add chrisoops500/ai-website-deploy-skill
+```
+
+可用 `--agent codex`、`--agent claude-code` 或 `--agent cursor` 指定安装目标。需要 Git 与当前 CLI 支持的 Node.js 版本。安装目标支持不等于所有环境已完成云端验证；原始部署流程在 Codex 中验证，其他 Agent 仍依赖自身连接器、CLI 和权限。
+
+也可以在 Codex 中发送：
 
 ```text
 帮我安装这个 GitHub 仓库中的 skill：
@@ -198,7 +214,37 @@ Render 已连接 Git Deployment Credentials
 
 **它不会替你重新写一个网站，也不会让人把密钥粘进聊天。** 这份技能专注把已有项目交付到可验证的线上状态。
 
+## 常见问题：免费网站部署与免费后端
+
+### AI 能帮我自动搭建和部署网站吗？
+
+先用 AI 编程工具完成网站，再用这个技能接手部署已有项目。它会识别构建目录、配置托管、连接 API 并验证公开链接，不重新设计已有网站。
+
+### 免费后端必须配 SQL 数据库吗？
+
+不必。计算、接口联调和临时共享状态可以只部署 API。需要长期保留评论、表单或账号数据时，再选合适的持久化存储；Render 临时文件不代表永久保存。
+
+### Codex、Claude Code、Cursor 都可以安装吗？
+
+Skills CLI 提供这些安装目标。实际部署能力取决于 Agent 可用的云平台连接、官方 CLI、浏览器和权限；本项目不把安装兼容宣称为所有环境都已完成部署实测。
+
+### 为什么有了 Skill 还需要平台授权？
+
+Skill 是工作流程说明，不自带 Netlify / Render 账号和访问凭据。源码私有时，还需允许部署平台拉取指定仓库。
+
+### 这个技能来自什么实际场景？
+
+来自 ECHO 匿名评论网站的 Netlify 前端和 Render API 部署。原始会话验证了从公开前端写入并独立读取的流程，源码保持私有，临时数据测试没有使用 SQL。这个案例用于说明工作方式，不代表持续在线或永久存储承诺。
+
+### 可以修改并分享给自己的团队吗？
+
+可以。本项目使用 [MIT 许可证](LICENSE)，允许使用、修改和分发，保留版权与许可证声明即可。可以 [Fork 仓库](https://github.com/chrisoops500/ai-website-deploy-skill/fork)，修改后从自己的仓库安装。
+
 ## ✧ 反馈与贡献
+
+如果帮你顺利上线了网站，欢迎 [Star 收藏](https://github.com/chrisoops500/ai-website-deploy-skill/stargazers)，让更多开发者发现它；需要调整为团队流程，可以 [Fork](https://github.com/chrisoops500/ai-website-deploy-skill/fork)。
+
+[贡献指南](CONTRIBUTING.md) · [中英文分享文案](docs/share.md)
 
 欢迎提交 [Issue](https://github.com/chrisoops500/ai-website-deploy-skill/issues) 或 Pull Request，分享可复现的部署问题、文档变化和访问测试。
 

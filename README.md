@@ -6,14 +6,24 @@
 
 ### Free website deployment. Optional backend hosting. Real end-to-end checks.
 
-**An agent skill that takes an existing website from your local project to a working public URL.**
+**Deploy an existing website with your AI coding agent: Netlify frontend hosting, an optional Render backend, and verified frontend-to-API integration.**
 
 [![Agent Skill](https://img.shields.io/badge/Agent-Skill-3ee0b5?style=flat-square&labelColor=10232c)](SKILL.md)
 [![Netlify](https://img.shields.io/badge/Netlify-Frontend-00c7b7?style=flat-square&labelColor=10232c)](https://www.netlify.com/)
 [![Render](https://img.shields.io/badge/Render-Optional_Backend-a78bfa?style=flat-square&labelColor=10232c)](https://render.com/)
 [![Data](https://img.shields.io/badge/User_Data-On_Demand-80a8ff?style=flat-square&labelColor=10232c)](references/access-and-data.md)
 
-[Quick start](#-quick-start) · [How it works](#-how-it-works) · [User data](#-optional-backends-and-user-data) · [Regional access](#-mainland-china-and-overseas-access) · [Chinese guide](README.zh-CN.md)
+[Install](#-quick-start) · [How it works](#-how-it-works) · [User data](#-optional-backends-and-user-data) · [Regional access](#-mainland-china-and-overseas-access) · [FAQ](#frequently-asked-questions) · [中文指南](README.zh-CN.md)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-3ee0b5?style=flat-square&labelColor=10232c)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/chrisoops500/ai-website-deploy-skill?style=flat-square&label=Star)](https://github.com/chrisoops500/ai-website-deploy-skill/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/chrisoops500/ai-website-deploy-skill?style=flat-square&label=Fork)](https://github.com/chrisoops500/ai-website-deploy-skill/fork)
+
+```bash
+npx skills add chrisoops500/ai-website-deploy-skill
+```
+
+Install → choose your agent → open your website project → ask it to deploy.
 
 </div>
 
@@ -39,21 +49,47 @@ Building a site with an AI coding agent is only part of the journey. You still n
 
 ### 1. Install the skill
 
-Ask Codex to install the skill from this repository:
+Run the [Skills CLI](https://github.com/vercel-labs/skills) in your project and choose your coding agent:
+
+```bash
+npx skills add chrisoops500/ai-website-deploy-skill
+```
+
+Requires Git and a Node.js version supported by the current Skills CLI. To target one agent explicitly:
+
+```bash
+# Codex: install into this project
+npx skills add chrisoops500/ai-website-deploy-skill --agent codex
+
+# Claude Code: install into this project
+npx skills add chrisoops500/ai-website-deploy-skill --agent claude-code
+
+# Cursor: install into this project
+npx skills add chrisoops500/ai-website-deploy-skill --agent cursor
+```
+
+The CLI supports these installation targets; cloud connectors, approvals, and execution capabilities depend on your agent environment. The original deployment workflow was exercised in Codex. Other agents' deployment flows have not been independently verified here.
+
+<details>
+<summary><b>Install through Codex or manually instead</b></summary>
+
+Ask Codex:
 
 ```text
 Install the agent skill from:
 https://github.com/chrisoops500/ai-website-deploy-skill
 ```
 
-Or clone into an unused local skills directory:
+Or clone into an unused local Codex skills directory:
 
 ```bash
 git clone https://github.com/chrisoops500/ai-website-deploy-skill.git \
   ~/.codex/skills/ai-website-deploy-skill
 ```
 
-If a skill with that name already exists, compare it before replacing it. Start a new conversation after installation. Other compatible agents may use different skill directories; follow your client's instructions.
+Compare an existing installation before replacing it. Start a new conversation after installation. Other agents may use different skill directories.
+
+</details>
 
 ### 2. Open your existing website project
 
@@ -101,6 +137,23 @@ as a substitute for persistent shared user data.
 ```
 
 </details>
+
+## Website deployment use cases
+
+| What you want to publish | How this skill helps |
+| --- | --- |
+| A portfolio, landing page, or HTML/CSS/JavaScript website | Free-tier frontend deployment on Netlify; no backend required |
+| A React, Vue, or Vite website | Detect the existing build and publish settings, then verify routes and assets |
+| An app with SSR or server routes | Inspect the framework adapter and runtime instead of assuming a static export |
+| A website with a Node.js API | Optional Render backend deployment, health checks, and frontend API routing |
+| An AI-built website that only runs on localhost | Turn the existing source into a public URL and check the real user flow |
+| Comments, forms, or other shared user data | Establish retention needs and connect suitable storage only when needed |
+
+### From the original deployment: ECHO
+
+This skill grew out of deploying an anonymous comment app with a Netlify frontend and a Render API. The original session verified a write and an independent read through the deployed frontend. The source repository stayed private; no SQL database was required for that temporary-data test.
+
+That deployment exposed the details now covered by the skill: private-repository deployment credentials, same-origin API rewrites, cold starts, and the difference between temporary JSON files and durable user data. It is a workflow example, not a claim of continuous uptime or permanent free storage.
 
 ## ◇ How it works
 
@@ -194,6 +247,9 @@ Private source can be cloned and built
 │   ├── providers.md               Platform setup, credentials and recovery
 │   └── access-and-data.md         Regional access and retention decisions
 ├── assets/                        Project artwork and icon
+├── CONTRIBUTING.md                Contribution and testing guide
+├── LICENSE                        MIT license
+├── docs/share.md                  Shareable project descriptions
 ├── README.md                      English project overview
 └── README.zh-CN.md                 Chinese guide
 ```
@@ -204,11 +260,45 @@ Use your coding tool to build and test the site locally, then use this skill for
 
 It does not replace an AI website builder or guarantee production-grade hosting at zero cost.
 
+## Frequently asked questions
+
+### How do I deploy a website for free with an AI agent?
+
+Install the skill, open your existing website project, and use the deployment prompt above. The agent inspects the project and available accounts, selects a suitable free-tier deployment mode, and checks the resulting public URL. You still need your own hosting accounts and any required approvals.
+
+### Can I host a backend for free without SQL?
+
+Yes, when Render's currently available Free Web Service plan fits the workload. An API for computation or temporary shared state does not inherently need a database. Records that must survive redeploys need appropriate durable storage.
+
+### Does this build a website or deploy an existing website?
+
+It deploys an existing website. Use your coding agent to build the application first; use this skill to configure hosting, connect the frontend and backend, and verify deployment.
+
+### Is this a Netlify or Render MCP server?
+
+No. This repository provides `SKILL.md` instructions and references. The agent uses whichever authorized platform connectors, official CLIs, or browser tools are available. Installing the skill does not sign you into a hosting account or grant access to a private repository.
+
+### Will this work for visitors in mainland China and overseas?
+
+The skill includes regional access checks. Actual availability depends on the domain, hosting, network, and external assets. Ask for tests on the target networks; untested regions must remain labeled as unverified.
+
+### How do I update or adapt the skill?
+
+Use the Skills CLI's update command for a CLI-managed installation. To change the instructions for your team, [fork this repository](https://github.com/chrisoops500/ai-website-deploy-skill/fork), edit the skill and references, and install from your own fork. Keep the MIT copyright and license notice when redistributing it.
+
 ## ✧ Feedback and contributions
+
+**Did it help you ship? [Star the repository](https://github.com/chrisoops500/ai-website-deploy-skill/stargazers) to save it and help other developers discover it.** [Fork it](https://github.com/chrisoops500/ai-website-deploy-skill/fork) to adapt the workflow for your team.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for deployment reports and pull requests. Small, reproducible improvements are welcome. [Shareable English and Chinese descriptions](docs/share.md) are available for linking to the project.
 
 [Open an issue](https://github.com/chrisoops500/ai-website-deploy-skill/issues) or submit a pull request with reproducible deployment failures, documentation changes, or regional testing reports.
 
 Include the framework, failed stage, and redacted logs. For access reports, include the network region and test time. **Never upload tokens, connection strings, personal user data, or logs without permission.**
+
+## License
+
+[MIT](LICENSE) © 2026 Chris Zhao.
 
 ---
 
